@@ -45,7 +45,7 @@ jobs:
       - name: Compile raylib-game-template for WASM
         run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/compile-raylib-game-template.sh
       - name: Zip release artifacts
-        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/create-release-zip.sh        
+        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/create-release-zip.sh
       - name: Deploy Static Site
         uses: moodiest/push-to-branch-action@develop
         env:
