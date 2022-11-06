@@ -56,6 +56,6 @@ jobs:
       - name: Publish release artifacts
         uses: Roang-zero1/github-upload-release-artifacts-action@v2
         with:
-          args: "$GITHUB_WORKSPACE/release.zip"
+          args: "release.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
