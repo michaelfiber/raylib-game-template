@@ -1,5 +1,13 @@
 -----------------------------------
 
+**NOTE from michaelfiber**: This is a fork of the original raylib game template. It has a github workflow that automatically builds the WASM version of the game and copies the resulting files to a branch called gh-pages. **If you publish gh-pages as a github site your game will be published there automatically when you merge to main**. To do this there are some additional scripts added under /github-scripts and the Makefile has been modified slightly because of some weird stuff that came up during the emscripten build process on Github Actions.
+
+This was made because raylib game jams require you build your game as WASM.
+
+It always pulls the current repo for emscripten and the current master branch from the raylib repo and uses those for the build process. It runs on ubuntu-latest with the most recent versions of the build essentials available there.
+
+---
+
 _DISCLAIMER:_
 
 Welcome to **raylib game template**!
