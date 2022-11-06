@@ -1,7 +1,7 @@
-name: Build and Publish WASM
+name: Release Game
 on:
-  push: 
-    branches: ["main"]
+  release:
+    types: [published]
 env:
   PLATFORM: PLATFORM_WEB
   MAKE: /usr/bin/make
@@ -18,8 +18,8 @@ jobs:
         with:
           branch: 'gh-pages'
   build:
-    name: Build WASM for Merge
-    needs: [make-gh-pages]    
+    name: Build WASM For Release
+    needs: [make-gh-pages]
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
@@ -50,4 +50,12 @@ jobs:
           REPO: self
           BRANCH: gh-pages
           FOLDER: raylib-game-template/site
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Zip release artifacts
+        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/create-release-zip.sh
+      - name: Publish release artifacts
+        uses: Roang-zero1/github-upload-release-artifacts-action@v2
+        with:
+          args: "$GITHUB_WORKSPACE/release.zip"
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
