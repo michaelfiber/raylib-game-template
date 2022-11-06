@@ -4,6 +4,4 @@ set -Eeuo pipefail
 
 ###
 
-cd $GITHUB_WORKSPACE
-
-zip ./release.zip $GITHUB_WORKSPACE/raylib-game-template/site/index.*
+zip $GITHUB_WORKSPACE/raylib-game-template/site/release.zip $GITHUB_WORKSPACE/raylib-game-template/site/index.*
