@@ -27,9 +27,6 @@ BUILD_WEB_SHELL=$HTML_TEMPLATE EMCC_PATH=$GITHUB_WORKSPACE/emsdk/upstream/emscri
 # make the dir in case it doesn't exist.
 mkdir -p $GITHUB_WORKSPACE/raylib-game-template/site
 
-# if there are already files there, remove them.
-rm $GITHUB_WORKSPACE/raylib-game-template/site/*
-
 # move all the index.* files from src to the site directory.
 mv ./index.* $GITHUB_WORKSPACE/raylib-game-template/site/
 
