@@ -1,0 +1,10 @@
+# If true, place a link to the zip file containing the release in index.html
+RELEASE_LINK_IN_HTML=true
+
+# If true, use the pwashell.html template which enables service worker based caching and eventually installing via manifest.
+PWA=true
+
+# If false, the path to the service worker file will be /$REPO/sw.js e.g. /raylib_game_template/sw.js - this is compatible with github pages.
+# If anything other than false, teh path to the esrvice worker file will be /$OVERRIDE_PWA_PATH/sw.js
+# Ignored completely if PWA != true
+OVERRIDE_PWA_PATH=false

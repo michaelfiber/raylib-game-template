@@ -6,6 +6,8 @@ env:
   PLATFORM: PLATFORM_WEB
   MAKE: /usr/bin/make
   PYTHON_PATH: /usr/bin
+  GITHUB_SHA: ${{ github.sha }}
+  REPO: ${{ github.repository }}  
 jobs:
   make-gh-pages:
     name: Create gh-pages branch if necessary
