@@ -30,7 +30,10 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y make build-essential python3 curl
       - name: Get nightly raylib wasm build
-        run: mkdir -p $GITHUB_WORKSPACE/raylib && curl -o - https://michaelfiber.github.io/raylib-nightly-wasm/libraylib.a.gz | gunzip > $GITHUB_WORKSPACE/raylib/libraylib.a
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/raylib 
+          cd $GITHUB_WORKSPACE/raylib 
+          wget -qO- https://michaelfiber.github.io/raylib-nightly-wasm/raylib.wasm.tar.gz | tar xvz
       - name: Checkout raylib-game-template
         uses: actions/checkout@v3
         with:
