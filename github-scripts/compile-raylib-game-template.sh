@@ -10,11 +10,8 @@ cd $GITHUB_WORKSPACE/raylib-game-template/src
 
 echo "running makefile."
 
-HTML_TEMPLATE=minshell.html
-
 if [[ $PWA == "true" ]]; then
 	echo "Building with PWA enabled"
-	HTML_TEMPLATE=pwashell.html
 fi
 
 # remove the release link unless specified.
@@ -22,7 +19,7 @@ if [[ $RELEASE_LINK_IN_HTML != "true" ]]; then
 	sed -i 's/<a href="release.zip">Download Release ZIP<\/a>//g' $HTML_TEMPLATE
 fi
 
-BUILD_WEB_SHELL=$HTML_TEMPLATE EMSDK_PYTHON=/usr/bin/python3 RAYLIB_PATH=$GITHUB_WORKSPACE/raylib PROJECT_NAME=index make -e all
+BUILD_WEB_SHELL=minshell.html EMSDK_PYTHON=/usr/bin/python3 RAYLIB_PATH=$GITHUB_WORKSPACE/raylib PROJECT_NAME=index make -e all
 
 # make the dir in case it doesn't exist.
 mkdir -p $GITHUB_WORKSPACE/raylib-game-template/site
@@ -46,4 +43,9 @@ if [[ $PWA == "true" ]]; then
 
 	mv ./sw.js $GITHUB_WORKSPACE/raylib-game-template/site/
 	mv ./pwa-bootstrap.js $GITHUB_WORKSPACE/raylib-game-template/site/
+
+else
+
+	sed -i 's/<script src=pwa-bootstrap.js><\/script>//g' $GITHUB_WORKSPACE/raylib-game-template/site/index.html
+
 fi
