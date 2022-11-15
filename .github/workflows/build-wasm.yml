@@ -36,9 +36,7 @@ jobs:
         with:
           path: raylib-game-template
       - name: Checkout emsdk
-        uses: lovasoa/setup-emscripten@master
-        with:
-          emscripten-version: '1.38.47'
+        uses: mymindstorm/setup-emsdk@v11
       - name: Compile raylib-game-template for WASM
         run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/compile-raylib-game-template.sh
       - name: Zip release artifacts
