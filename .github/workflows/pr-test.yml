@@ -5,7 +5,10 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    - name: Setup emsdk
-      uses: mymindstorm/setup-emsdk@v11
-    - name: Verify emsdk
-      run: emcc -v
+    name: Run test build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup emsdk
+        uses: mymindstorm/setup-emsdk@v11
+      - name: Verify emsdk
+        run: emcc -v
