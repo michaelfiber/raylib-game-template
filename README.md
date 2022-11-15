@@ -1,10 +1,14 @@
 -----------------------------------
 
-**NOTE from michaelfiber**: This is a fork of the original raylib game template. It has a github workflow that automatically builds the WASM version of the game and copies the resulting files to a branch called gh-pages. **If you publish gh-pages as a github site your game will be published there automatically when you merge to main**. To do this there are some additional scripts added under /github-scripts and the Makefile has been modified slightly because of some weird stuff that came up during the emscripten build process on Github Actions.
+**NOTE from michaelfiber**: This fork has the following changes:
 
-This was made because raylib game jams require you build your game as WASM.
+- .github/workflows/build-wasm.yml - Automatically builds and publishes a WASM version of the project on Github. The final files are sent to a branch called gh-pages. You can set up Github pages to publish this to access them from YOUR_USERNAME.github.io/REPO_NAME
 
-It always pulls the current repo for emscripten and the current master branch from the raylib repo and uses those for the build process. It runs on ubuntu-latest with the most recent versions of the build essentials available there.
+- docker-scripts - There are linux scripts to build and run a Docker container that produces WASM files. The Docker container will write the resulting data to a directory called **dist** in the root of the project. **docker-build.sh** uses the Dockerfile to create a Docker image. **docker-run.sh** runs that image in a container passing in the root of the project for it to work on.
+
+- github-scripts/config - this config file lets you set some options related to the Github Actions workflow as well as the docker build container.
+
+- minshell.html - this has been updated to import pwa-bootstrap.js which registers sw.js. This all adds a service worker that caches all requests to make the result work better offline. More PWA add-ons are coming soon
 
 ---
 
