@@ -1,13 +1,16 @@
-name: Release Game
+name: Build and Publish WASM
 on:
+  push: 
+    branches: ["main"]
   release:
     types: [published]
+  workflow_dispatch:    
 env:
   PLATFORM: PLATFORM_WEB
   MAKE: /usr/bin/make
   PYTHON_PATH: /usr/bin
   GITHUB_SHA: ${{ github.sha }}
-  REPO: ${{ github.repository }}    
+  REPO: ${{ github.repository }}  
 jobs:
   make-gh-pages:
     name: Create gh-pages branch if necessary
@@ -20,30 +23,22 @@ jobs:
         with:
           branch: 'gh-pages'
   build:
-    name: Build WASM For Release
-    needs: [make-gh-pages]
+    name: Build WASM for Merge
+    needs: [make-gh-pages]    
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y make build-essential libasound2-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev python3
-      - name: Checkout raylib
-        uses: actions/checkout@v3
-        with:
-          path: raylib
-          repository: raysan5/raylib
+        run: sudo apt-get update && sudo apt-get install -y make build-essential python3 curl
+      - name: Get nightly raylib wasm build
+        run: mkdir -p $GITHUB_WORKSPACE/raylib && curl -o - https://michaelfiber.github.io/raylib-nightly-wasm/libraylib.a.gz | gunzip > $GITHUB_WORKSPACE/raylib/libraylib.a
       - name: Checkout raylib-game-template
         uses: actions/checkout@v3
         with:
           path: raylib-game-template
       - name: Checkout emsdk
-        uses: actions/checkout@v3
+        uses: lovasoa/setup-emscripten@master
         with:
-          repository: emscripten-core/emsdk
-          path: emsdk
-      - name: Install & Activate emsdk
-        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/setup-emsdk.sh
-      - name: Compile raylib for WASM
-        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/compile-raylib.sh
+          emscripten-version: '1.38.47'
       - name: Compile raylib-game-template for WASM
         run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/compile-raylib-game-template.sh
       - name: Zip release artifacts

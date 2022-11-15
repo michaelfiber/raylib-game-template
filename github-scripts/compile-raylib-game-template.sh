@@ -22,7 +22,7 @@ if [[ $RELEASE_LINK_IN_HTML != "true" ]]; then
 	sed -i 's/<a href="release.zip">Download Release ZIP<\/a>//g' $HTML_TEMPLATE
 fi
 
-BUILD_WEB_SHELL=$HTML_TEMPLATE EMCC_PATH=$GITHUB_WORKSPACE/emsdk/upstream/emscripten/emcc EMSDK_PYTHON=/usr/bin/python3 RAYLIB_PATH=$GITHUB_WORKSPACE/raylib PROJECT_NAME=index make all
+BUILD_WEB_SHELL=$HTML_TEMPLATE EMSDK_PYTHON=/usr/bin/python3 RAYLIB_PATH=$GITHUB_WORKSPACE/raylib PROJECT_NAME=index make all
 
 # make the dir in case it doesn't exist.
 mkdir -p $GITHUB_WORKSPACE/raylib-game-template/site
