@@ -25,6 +25,7 @@
 
 #include "raylib.h"
 #include "screens.h"
+#include "utils.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -63,8 +64,10 @@ void DrawTitleScreen(void)
 {
     // TODO: Draw TITLE screen here!
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), GREEN);
-    DrawTextEx(font, "TITLE SCREEN", (Vector2){ 20, 10 }, font.baseSize*3, 4, DARKGREEN);
-    DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+    SetFontColor(DARKGREEN);
+    SetFontEx(&font, font.baseSize*3, 4);
+    DrawTextCenteredEx("TITLE", 10);
+    DrawText("[ENTER]",GetScreenWidth() - (MeasureText("[ENTER]", 20) + 10), 220, 20, DARKGREEN);
 }
 
 // Title Screen Unload logic

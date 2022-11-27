@@ -25,6 +25,7 @@
 
 #include "raylib.h"
 #include "screens.h"
+#include "utils.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -62,8 +63,12 @@ void DrawEndingScreen(void)
 {
     // TODO: Draw ENDING screen here!
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLUE);
-    DrawTextEx(font, "ENDING SCREEN", (Vector2){ 20, 10 }, font.baseSize*3, 4, DARKBLUE);
-    DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+    
+    SetFontColor(DARKBLUE);
+    SetFontEx(&font, font.baseSize*3, 4);
+    DrawTextCenteredEx("ENDING", 10);
+
+    DrawText("[ENTER]",GetScreenWidth() - (MeasureText("[ENTER]", 20) + 10), 220, 20, DARKBLUE);
 }
 
 // Ending Screen Unload logic

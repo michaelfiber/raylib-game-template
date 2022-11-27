@@ -25,6 +25,7 @@
 
 #include "raylib.h"
 #include "screens.h"
+#include "utils.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -62,8 +63,12 @@ void DrawGameplayScreen(void)
 {
     // TODO: Draw GAMEPLAY screen here!
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
-    DrawTextEx(font, "GAMEPLAY SCREEN", (Vector2){ 20, 10 }, font.baseSize*3, 4, MAROON);
-    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+    
+    SetFontColor(MAROON);
+    SetFontEx(&font, font.baseSize*3, 4);
+    DrawTextCenteredEx("GAMEPLAY", 10);
+
+    DrawText("[ENTER]",GetScreenWidth() - (MeasureText("[ENTER]", 20) + 10), 220, 20, MAROON);
 }
 
 // Gameplay Screen Unload logic
