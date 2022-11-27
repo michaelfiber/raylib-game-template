@@ -1,12 +1,30 @@
 @media (orientation: portrait) {
+	#main {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
 	#canvas {
 		width: 100%;
+	}
+
+	.landscape-controls {
+		display: none;
 	}
 }
 
 @media (orientation: landscape) {
+	#main {
+		flex-direction: row;
+		justify-content: center;
+	}
+
 	#canvas {
 		height: 100%;
+	}
+
+	.portrait-controls {
+		display: none;
 	}
 }
 
@@ -14,16 +32,29 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: black;
+	background-color: gray;
 }
 
 #main {
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
 	align-items: flex-start;
 	height: 100%;
 }
 
 #canvas {
+	min-width: 256px;
+	min-height: 256px;
 }
+
+.landscape-controls {
+	height: 100%;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.right-controls {
+	text-align: right;
+}
+
