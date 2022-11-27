@@ -3,42 +3,53 @@
 #include "fontstyle.h"
 #include "string.h"
 
-typedef struct {
-	FontStyle* style;
-	char* name;
-	StyleNode* next;
+typedef struct StyleNode
+{
+	FontStyle *style;
+	char *name;
+	struct StyleNode *next;
 } StyleNode;
 
 StyleNode root = {
 	.name = "default",
 	.next = NULL,
-	.style = NULL 
-};
+	.style = NULL};
 
-void LoadFontStyle() {
-	FontStyle* defaultStyle = (FontStyle *)malloc(sizeof(FontStyle));
+FontStyle *currentStyle = NULL;
+
+void InitFontStyle()
+{
+	FontStyle *defaultStyle = (FontStyle *)malloc(sizeof(FontStyle));
 	defaultStyle->font = GetFontDefault();
-	defaultStyle->fontColor = WHITE;
-	defaultStyle->fontSize = defaultStyle->font.baseSize * 3;
-	defaultStyle->fontSpacing = 4;
+	defaultStyle->color = WHITE;
+	defaultStyle->size = defaultStyle->font.baseSize * 3;
+	defaultStyle->spacing = 4;
 	root.style = defaultStyle;
 }
 
-void UnloadFontStyle() {
+void UnloadFontStyles()
+{
 	StyleNode *current = &root;
-	while (current != NULL) {
+	while (current != NULL)
+	{
 		StyleNode *next = current->next;
 		free(current);
 		current = next;
 	}
 }
 
-void UpsertFontStyleNode(StyleNode *current, char *name, FontStyle *style) {
-	if (strcmp(current->name, name) == 0) {
+void UpsertFontStyleNode(StyleNode *current, char *name, FontStyle *style)
+{
+	if (strcmp(current->name, name) == 0)
+	{
 		current->style = style;
-	} else if (current->next != NULL) {
+	}
+	else if (current->next != NULL)
+	{
 		UpsertFontStyleNode(current->next, name, style);
-	} else {
+	}
+	else
+	{
 		current->next = (StyleNode *)malloc(sizeof(StyleNode));
 		current = current->next;
 		current->name = name;
@@ -47,41 +58,93 @@ void UpsertFontStyleNode(StyleNode *current, char *name, FontStyle *style) {
 	}
 }
 
-void SetFontStyle(char *name, FontStyle *style) {
+void LoadFontStyle(char *name, FontStyle *style)
+{
 	StyleNode *current = &root;
 	UpsertFontStyleNode(current, name, style);
 }
 
-void RemoveFontStyle(char *name) {
+void UnloadFontStyle(char *name)
+{
 	StyleNode *current = &root;
-	while (current != NULL) {
-		if (current->next != NULL) {
+	while (current != NULL)
+	{
+		if (current->next != NULL)
+		{
 			StyleNode *examine = current->next;
-			if(strcmp(examine->name, name)==0) {
+			if (strcmp(examine->name, name) == 0)
+			{
 				current->next = examine->next;
 				free(examine);
 				break;
 			}
 			current = current->next;
-		} 
+		}
 	}
 }
 
-void SetFontEx(Font *font, float fontSize, float fontSpacing) {
-	fontState.font = font;
-	fontState.fontSize = fontSize;
-	fontState.fontSpacing = fontSpacing;
+StyleNode *FindStyleNode(char *name)
+{
+	StyleNode *current = &root;
+	while (current != NULL)
+	{
+		if (strcmp(current->name, name) == 0)
+		{
+			return current;
+		}
+		current = current->next;
+	}
+	TraceLog(LOG_DEBUG, TextFormat("Could not find style: %s", name));
+	return NULL;
 }
 
-void SetFontColor(Color color) {
-	fontState.fontColor = color;
+void SetCurrentFontStyle(char *styleName)
+{
+	StyleNode *node = FindStyleNode(styleName);
+	if (node != NULL)
+		currentStyle = node->style;
 }
 
-void DrawTextCenteredEx(char *text, float y) {
-	if (fontState.font == NULL) {
-		TraceLog(LOG_DEBUG, "DrawTextCeneteredEx called without calling SetFontEx first.");
+void DrawStyleTextCentered(char *text, float y)
+{
+	if (currentStyle == NULL)
 		return;
+	DrawTextEx(currentStyle->font,
+			   text,
+			   (Vector2){
+				   (int)(GetScreenWidth() / 2 - MeasureTextEx(currentStyle->font, text, currentStyle->size, currentStyle->spacing).x / 2),
+				   y},
+			   currentStyle->size,
+			   currentStyle->spacing,
+			   currentStyle->color);
+}
+
+void DrawStyleTextAnchored(char *text, FontAnchors anchors)
+{
+	Vector2 textSize = MeasureTextEx(currentStyle->font, text, currentStyle->size, currentStyle->spacing);
+
+	int x = GetScreenWidth() / 2 - textSize.x / 2;
+	int y = GetScreenHeight() / 2 - textSize.y / 2;
+
+	if (anchors.top > -1)
+	{
+		y = anchors.top;
 	}
 
-	DrawTextEx(*fontState.font, text, (Vector2){ (int)(GetScreenWidth() / 2 - MeasureTextEx(*fontState.font, text,fontState.fontSize, fontState.fontSpacing).x / 2), y }, fontState.fontSize, fontState.fontSpacing, fontState.fontColor);
+	if (anchors.bottom > -1)
+	{
+		y = GetScreenHeight() - anchors.bottom - textSize.y;
+	}
+
+	if (anchors.left > -1)
+	{
+		x = anchors.left;
+	}
+
+	if (anchors.right > -1)
+	{
+		x = GetScreenWidth() - anchors.right - textSize.x;
+	}
+
+	DrawTextEx(currentStyle->font, text, (Vector2){x, y}, currentStyle->size, currentStyle->spacing, currentStyle->color);
 }

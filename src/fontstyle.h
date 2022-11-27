@@ -3,13 +3,28 @@
 
 typedef struct {
 	Font font;
-	float fontSize;
-	float fontSpacing;
-	Color fontColor;
+	float size;
+	float spacing;
+	Color color;
 } FontStyle;
 
-void SetFontEx(Font *font, float fontSize, float fontSpacing);
+typedef struct {
+	int top;
+	int right;
+	int bottom;
+	int left;
+} FontAnchors;
 
-void SetFontColor(Color color);
+void InitFontStyle();
 
-void DrawTextCenteredEx(char *text, float y);
+void UnloadFontStyles();
+
+void LoadFontStyle(char *name, FontStyle *style);
+
+void UnloadFontStyle(char *name);
+
+void SetCurrentFontStyle(char *styleName);
+
+void DrawStyleTextCentered(char *text, float y);
+
+void DrawStyleTextAnchored(char *text, FontAnchors anchors);
