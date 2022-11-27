@@ -373,6 +373,7 @@ endif
 # Define source code object files required
 #------------------------------------------------------------------------------------------------
 PROJECT_SOURCE_FILES ?= \
+	fontstyle.c \
     raylib_game.c \
     screen_logo.c \
     screen_title.c \

@@ -10,6 +10,13 @@
 
 - minshell.html - this has been updated to import pwa-bootstrap.js which registers sw.js. This all adds a service worker that caches all requests to make the result work better offline. More PWA add-ons are coming soon
 
+**ALSO NOTE**: This template is compatible with mikes-raylib-wasm-builder:
+
+`docker pull michaelfiber/mikes-raylib-wasm-builder`
+`docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest`
+
+This will create a "dist" folder inside your project that contains a WASM build of your game. It uses the Makefile in ./src so as long as that is updated for your game and doesn't contain radical changes it should work.
+
 ---
 
 _DISCLAIMER:_

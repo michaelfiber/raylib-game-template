@@ -7,6 +7,10 @@ if [[ $PWA == "true" ]]; then
 	echo "Building with PWA enabled"	
 fi
 
+if [[ $MOBILE_CONTROLS == "true" ]]; then
+	echo "Building with on screen controls for mobile"
+fi
+
 cd /app/project/src
 
 BUILD_WEB_SHELL=minshell.html PROJECT_NAME=index RAYLIB_PATH=/app/raylib PLATFORM=PLATFORM_WEB make -e
@@ -35,6 +39,12 @@ else
 
 	sed -i 's/<script src=pwa-bootstrap.js><\/script>//g' /app/project/dist/index.html
 
+fi
+
+if [[ $MOBILE_CONTROLS == "true" ]]; then
+	cp ./mobile-controls /app/project/dist/
+else
+	sed -i 's/>script src=mobile-controls.js><\/script>//g' /app/project/dist/index.html
 fi
 
 make clean

@@ -25,6 +25,7 @@
 
 #include "raylib.h"
 #include "screens.h"
+#include "fontstyle.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -42,6 +43,15 @@ void InitGameplayScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+
+	FontStyle *small = (FontStyle *)(MemAlloc(sizeof(FontStyle)));
+	small->color = MAROON;
+	small->font = GetFontDefault();
+	small->size = small->font.baseSize * 2;
+	small->spacing = 4;
+
+	LoadFontStyle("gameplaysmall", small);
+	SetCurrentFontStyle("gameplaysmall");
 }
 
 // Gameplay Screen Update logic
@@ -62,14 +72,14 @@ void DrawGameplayScreen(void)
 {
     // TODO: Draw GAMEPLAY screen here!
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
-    DrawTextEx(font, "GAMEPLAY SCREEN", (Vector2){ 20, 10 }, font.baseSize*3, 4, MAROON);
-    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+	DrawStyleTextAnchored("[ENTER]", (FontAnchors){-1, 10, 10, -1});
 }
 
 // Gameplay Screen Unload logic
 void UnloadGameplayScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+	UnloadFontStyle("gameplaysmall");
 }
 
 // Gameplay Screen should finish?
