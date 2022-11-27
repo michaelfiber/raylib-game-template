@@ -1,0 +1,29 @@
+@media (orientation: portrait) {
+	#canvas {
+		width: 100%;
+	}
+}
+
+@media (orientation: landscape) {
+	#canvas {
+		height: 100%;
+	}
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+}
+
+#main {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	height: 100%;
+}
+
+#canvas {
+}

@@ -30,13 +30,10 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://www.raylib.com/favicon.ico">
     
+	<link rel="stylesheet" type="text/css" href="minshell.css">
 	<script src="pwa-bootstrap.js"></script>
 	<script src="mobile-controls.js"></script>
 	
-    <style>
-        body { margin: 0px; }
-        canvas.emscripten { border: 0px none; background-color: black; }
-    </style>
     <script type='text/javascript' src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/dist/FileSaver.min.js"> </script>
     <script type='text/javascript'>
         function saveFileFromMEMFSToDisk(memoryFSname, localFSname)     // This can be called by C/C++ code
@@ -58,7 +55,9 @@
     </script>
     </head>
     <body>
-        <canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
+		<div id="main">
+        	<canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
+		</div>
         <p id="output" />
         <script>
             var Module = {
