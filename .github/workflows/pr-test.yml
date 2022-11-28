@@ -34,9 +34,11 @@ jobs:
       -
         name: Docker Run
         run: ./raylib-game-template/docker-scripts/docker-run.sh
-      - name: Zip release artifacts
-        run: zip ./raylib-game-template/site/release.zip ./raylib-game-template/dist/*
-      - name: Deploy Static Site
+      - 
+        name: Zip release artifacts
+        run: ./raylib-game-template/docker-scripts/zip-files.sh
+      - 
+        name: Deploy Static Site
         uses: moodiest/push-to-branch-action@develop
         env:
           REPO: self
