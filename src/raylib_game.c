@@ -15,6 +15,7 @@
 #include "raylib.h"
 #include "screens.h"    // NOTE: Declares global (extern) variables and screens functions
 #include "fontstyle.h"
+#include "vibrate.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -222,6 +223,11 @@ static void UpdateDrawFrame(void)
     // Update
     //----------------------------------------------------------------------------------
     UpdateMusicStream(music);       // NOTE: Music keeps playing between screens
+
+	if (IsMouseButtonPressed(0)) {
+		TraceLog(LOG_DEBUG, "Trigger vibrate");
+		Vibrate(1000);
+	}
 
     if (!onTransition)
     {

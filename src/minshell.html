@@ -32,7 +32,6 @@
     
 	<link rel="stylesheet" type="text/css" href="minshell.css">
 	<script src="pwa-bootstrap.js"></script>
-	<script src="mobile-controls.js"></script>
 	
     <script type='text/javascript' src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/dist/FileSaver.min.js"> </script>
     <script type='text/javascript'>
@@ -56,11 +55,9 @@
     </head>
     <body>
 		<div id="main">
-			<div id="left-control-holder" class="landscape-controls left-controls"></div>
         	<canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
-			<div id="right-control-holder" class="landscape-controls right-controls"></div>
-			<div id="bottom-control-holder" class="portrait-controls bottom-controls">bottom</div>
 		</div>
+		<div id="mobile-controls"></div>
         <p id="output" />
         <script>
             var Module = {

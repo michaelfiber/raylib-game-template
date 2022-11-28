@@ -7,10 +7,6 @@
 	#canvas {
 		width: 100%;
 	}
-
-	.landscape-controls {
-		display: none;
-	}
 }
 
 @media (orientation: landscape) {
@@ -21,10 +17,6 @@
 
 	#canvas {
 		height: 100%;
-	}
-
-	.portrait-controls {
-		display: none;
 	}
 }
 
@@ -44,17 +36,5 @@ html, body {
 #canvas {
 	min-width: 256px;
 	min-height: 256px;
-}
-
-.landscape-controls {
-	height: 100%;
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-}
-
-.right-controls {
-	text-align: right;
 }
 
