@@ -1,0 +1,1 @@
+void Say(char * text);

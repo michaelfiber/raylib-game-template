@@ -16,6 +16,7 @@
 #include "screens.h"    // NOTE: Declares global (extern) variables and screens functions
 #include "fontstyle.h"
 #include "vibrate.h"
+#include "speech.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -217,6 +218,8 @@ static void DrawTransition(void)
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, transAlpha));
 }
 
+bool isTalking = false;
+
 // Update and draw game frame
 static void UpdateDrawFrame(void)
 {
@@ -227,6 +230,11 @@ static void UpdateDrawFrame(void)
 	if (IsMouseButtonPressed(0)) {
 		TraceLog(LOG_DEBUG, "Trigger vibrate");
 		Vibrate(1000);
+	}
+
+	if (!isTalking && IsKeyPressed(KEY_SPACE)) {
+		isTalking = true;
+		Say("Hello there");
 	}
 
     if (!onTransition)
