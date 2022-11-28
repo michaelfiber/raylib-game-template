@@ -221,7 +221,7 @@ static void DrawTransition(void)
 static void UpdateDrawFrame(void)
 {
 	if (IsMouseButtonPressed(0)) {
-		int pattern[] = {500, 0, 500};
+		int pattern[] = {100, 100, 100};
 		Vibrate(pattern, 3);
 	}
 
