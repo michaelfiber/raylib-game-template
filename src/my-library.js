@@ -16,5 +16,4 @@ mergeInto(LibraryManager.library, {
 			navigator.vibrate(sequence);
 		}
 	},
-	Vibrate__deps: ['$intArrayToString'],
 });
