@@ -26,6 +26,7 @@
 #include "raylib.h"
 #include "screens.h"
 #include "fontstyle.h"
+#include "speech.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -59,6 +60,8 @@ void InitTitleScreen(void)
 	small->size = 20;
 	small->spacing = 4;
 	LoadFontStyle("titlesmall", small);
+
+	Say("welcome to the title screen");
 }
 
 // Title Screen Update logic
