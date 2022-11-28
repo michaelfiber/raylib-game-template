@@ -43,5 +43,5 @@ jobs:
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: raylib-game-template/site
+          FOLDER: raylib-game-template/dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
