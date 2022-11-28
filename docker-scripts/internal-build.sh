@@ -41,10 +41,8 @@ else
 
 fi
 
-if [[ $MOBILE_CONTROLS == "true" ]]; then
-	cp ./mobile-controls /app/project/dist/
-else
-	sed -i 's/>script src=mobile-controls.js><\/script>//g' /app/project/dist/index.html
+if [[ -f ./minshell.css ]]; then
+	cp ./minshell.css /app/project/dist/
 fi
 
 make clean

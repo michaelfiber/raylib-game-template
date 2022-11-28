@@ -1,0 +1,40 @@
+@media (orientation: portrait) {
+	#main {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	#canvas {
+		width: 100%;
+	}
+}
+
+@media (orientation: landscape) {
+	#main {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	#canvas {
+		height: 100%;
+	}
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: gray;
+}
+
+#main {
+	display: flex;
+	align-items: flex-start;
+	height: 100%;
+}
+
+#canvas {
+	min-width: 256px;
+	min-height: 256px;
+}
+
