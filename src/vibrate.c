@@ -1,16 +1,11 @@
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
-extern void vibrate(int duration);
+extern void Vibrate(int duration, ...);
 #else
-void vibrate(int duration) {}
+void Vibrate(int duration, ...) {}
 #endif
-
-void Vibrate(int duration)
-{
-	vibrate(duration);
-}
 
 void StopVibrate()
 {
-	vibrate(0);
+	Vibrate(0);
 }

@@ -1,11 +1,6 @@
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
-extern void speak(char *text);
+extern void Say(char *text);
 #else
-void speak(char *text) {}
+void Say(char *text) {}
 #endif
-
-void Say(char *text)
-{
-	speak(text);
-}
