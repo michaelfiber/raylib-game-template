@@ -374,6 +374,7 @@ endif
 # Define source code object files required
 #------------------------------------------------------------------------------------------------
 PROJECT_SOURCE_FILES ?= \
+	speech.c \
 	vibrate.c \
 	fontstyle.c \
     raylib_game.c \
