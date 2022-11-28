@@ -7,8 +7,6 @@ on:
   workflow_dispatch:    
 env:
   PLATFORM: PLATFORM_WEB
-  MAKE: /usr/bin/make
-  PYTHON_PATH: /usr/bin
   GITHUB_SHA: ${{ github.sha }}
   REPO: ${{ github.repository }}  
 jobs:
@@ -27,27 +25,25 @@ jobs:
     needs: [make-gh-pages]    
     runs-on: ubuntu-latest
     steps:
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y make build-essential python3 curl
-      - name: Get nightly raylib wasm build
-        run: |
-          mkdir -p $GITHUB_WORKSPACE/raylib/src
-          cd $GITHUB_WORKSPACE/raylib/src
-          wget -qO- https://michaelfiber.github.io/raylib-nightly-wasm/raylib.wasm.tar.gz | tar xvz
-      - name: Checkout raylib-game-template
+      - 
+        name: Checkout raylib-game-template
         uses: actions/checkout@v3
         with:
           path: raylib-game-template
-      - name: Checkout emsdk
-        uses: mymindstorm/setup-emsdk@v11
-      - name: Compile raylib-game-template for WASM
-        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/compile-raylib-game-template.sh
-      - name: Zip release artifacts
-        run: $GITHUB_WORKSPACE/raylib-game-template/github-scripts/create-release-zip.sh
-      - name: Deploy Static Site
+      -
+        name: Docker Build
+        run: ./raylib-game-template/docker-scripts/docker-build.sh
+      -
+        name: Docker Run
+        run: ./raylib-game-template/docker-scripts/docker-run.sh
+      - 
+        name: Zip release artifacts
+        run: ./raylib-game-template/docker-scripts/zip-files.sh
+      - 
+        name: Deploy Static Site
         uses: moodiest/push-to-branch-action@develop
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: raylib-game-template/site
+          FOLDER: raylib-game-template/dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
