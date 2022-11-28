@@ -16,6 +16,7 @@
 #include "screens.h"    // NOTE: Declares global (extern) variables and screens functions
 #include "fontstyle.h"
 #include "vibrate.h"
+#include "orientation.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -54,11 +55,16 @@ static void DrawTransition(void);           // Draw transition effect (full-scre
 
 static void UpdateDrawFrame(void);          // Update and draw one frame
 
+float beta = 0.0;
+float gamma = 0.0;
+
 //----------------------------------------------------------------------------------
 // Main entry point
 //----------------------------------------------------------------------------------
 int main(void)
 {
+	RegisterOrientationPointers(&beta, &gamma);
+
     // Initialization
     //---------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "raylib game template");
@@ -296,6 +302,8 @@ static void UpdateDrawFrame(void)
         if (onTransition) DrawTransition();
 
         //DrawFPS(10, 10);
+
+		DrawText(TextFormat("Beta %f\nGamma %f", beta, gamma), 20, 20, 20, BLACK);
 
     EndDrawing();
     //----------------------------------------------------------------------------------
