@@ -1,2 +1,2 @@
-void Vibrate(int duration, ...);
+void Vibrate(int *durations, int count);
 void StopVibrate();

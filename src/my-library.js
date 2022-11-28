@@ -7,9 +7,14 @@ mergeInto(LibraryManager.library, {
 			window.speechSynthesis.speak(utterThis);
 		}
 	},
-	Vibrate: function (...durations) {
+	Vibrate: function (intArrayPtr, count) {
+		let sequence = [];
+		for (let current = intArrayPtr; current < intArrayPtr + count * 4; current+=4) {
+			sequence.push(HEAP32[current>>2]);
+		}
 		if ('vibrate' in navigator) {
-			navigator.vibrate(durations);
+			navigator.vibrate(sequence);
 		}
 	},
+	Vibrate__deps: ['$intArrayToString'],
 });
