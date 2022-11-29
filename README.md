@@ -2,18 +2,40 @@
 
 **NOTE from michaelfiber**: This fork has the following changes:
 
-- .github/workflows/build-wasm.yml - Automatically builds and publishes a WASM version of the project on Github. The final files are sent to a branch called gh-pages. You can set up Github pages to publish this to access them from YOUR_USERNAME.github.io/REPO_NAME
+## Select browser features available to WASM builds:
+Very quick and dirty integration of some web browser features available in WASM builds by including my-library.h and using the functions from it:
 
-- docker-scripts - There are linux scripts to build and run a Docker container that produces WASM files. The Docker container will write the resulting data to a directory called **dist** in the root of the project. **docker-build.sh** uses the Dockerfile to create a Docker image. **docker-run.sh** runs that image in a container passing in the root of the project for it to work on.
+**Speech Synthesis** - works on modern browsers except Firefox.  `Say("Hello there");` in C will say "Hello there" in the default synthesis voice of your browser.
 
-- github-scripts/config - this config file lets you set some options related to the Github Actions workflow as well as the docker build container.
+**Vibration** - works on Mobile Chrome and maybe others? Triggers your phone to vibrate. The pattern passed alternates between vibration and non-vibration.  The sample below should vibrate for 100ms, then stop for 100ms, then vibrate for 100ms again.
+```C
+	int pattern[] = {100, 100, 100};
+	Vibrate(pattern, 3);
+```
 
-- minshell.html - this has been updated to import pwa-bootstrap.js which registers sw.js. This all adds a service worker that caches all requests to make the result work better offline. More PWA add-ons are coming soon
+**Device Rotation** - Works on most modern mobile browsers. Pass in pointers to floats for beta (tilting your phone forward and back) and gamma (tilting your phone left and right). Orientation are in degrees. 
+```C
+	float beta = 0.0;
+	float gamma = 0.0;
+	RegisterOrientationPointers(&beta, &gamma);
+```
 
-**ALSO NOTE**: This template is compatible with mikes-raylib-wasm-builder:
+## Github workflows
 
-`docker pull michaelfiber/mikes-raylib-wasm-builder`
-`docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest`
+**Github Workflows** - The `./github/workflows/build-wasm.yml` file tells Github to automatically build a WASM version using the docker-build and docker-run commands in the docker-script directory. That WASM version is pushed to a branch called gh-pages. The branch is created if necessary. You can then publish that branch as Github Pages and have static hosting for your WASM project.
+
+**Tiny bit of build config** - There's a little config in github-scripts/config - this config file lets you set some options related to the Github Actions workflow as well as the docker build container.
+
+## PWA Features
+**PWA** - minshell.html has been modified to add some basic PWA features.
+
+## Also note
+This template is compatible with mikes-raylib-wasm-builder:
+
+```
+	docker pull michaelfiber/mikes-raylib-wasm-builder
+	docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest
+```
 
 This will create a "dist" folder inside your project that contains a WASM build of your game. It uses the Makefile in ./src so as long as that is updated for your game and doesn't contain radical changes it should work.
 
