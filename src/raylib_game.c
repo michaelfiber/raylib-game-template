@@ -15,8 +15,7 @@
 #include "raylib.h"
 #include "screens.h"    // NOTE: Declares global (extern) variables and screens functions
 #include "fontstyle.h"
-#include "vibrate.h"
-#include "orientation.h"
+#include "my-library.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>

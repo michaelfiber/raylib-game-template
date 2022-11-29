@@ -33,6 +33,8 @@
 static int framesCounter = 0;
 static int finishScreen = 0;
 
+Texture2D raylibLogo = {0};
+
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
 //----------------------------------------------------------------------------------
@@ -52,6 +54,8 @@ void InitGameplayScreen(void)
 
 	LoadFontStyle("gameplaysmall", small);
 	SetCurrentFontStyle("gameplaysmall");
+
+	raylibLogo = LoadTexture("resources/raylib_logo.png");
 }
 
 // Gameplay Screen Update logic
@@ -73,6 +77,8 @@ void DrawGameplayScreen(void)
     // TODO: Draw GAMEPLAY screen here!
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
 	DrawStyleTextAnchored("[ENTER]", (FontAnchors){-1, 10, 10, -1});
+
+	DrawTexturePro(raylibLogo, (Rectangle){ 0, 0, raylibLogo.width, raylibLogo.height }, (Rectangle){ GetScreenWidth() / 2, GetScreenHeight() / 2, raylibLogo.width, raylibLogo.height }, (Vector2){ raylibLogo.width / 2, raylibLogo.height / 2}, -gamma, WHITE);
 }
 
 // Gameplay Screen Unload logic
@@ -80,6 +86,7 @@ void UnloadGameplayScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
 	UnloadFontStyle("gameplaysmall");
+	UnloadTexture(raylibLogo);
 }
 
 // Gameplay Screen should finish?
