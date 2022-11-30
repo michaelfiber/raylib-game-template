@@ -7,6 +7,10 @@
 	#canvas {
 		width: 100%;
 	}
+
+	#virtual-gamepad {
+		display: flex;
+	}
 }
 
 @media (orientation: landscape) {
@@ -17,6 +21,10 @@
 
 	#canvas {
 		height: 100%;
+	}
+
+	#virtual-gamepad {
+		display: none;
 	}
 }
 
@@ -38,3 +46,21 @@ html, body {
 	min-height: 256px;
 }
 
+
+#virtual-gamepad {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+#amdfc-controller {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	height: auto;
+}
