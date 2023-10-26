@@ -19,6 +19,8 @@ mkdir -p /app/project/dist
 
 mv index.* /app/project/dist/
 
+ls -al /app/project/dist/
+
 # Automatically strip the release zip because this is built in docker locally.
 sed -i 's/<div><a href=release.zip>Download Release ZIP<\/a><\/div>//g' /app/project/dist/index.html
 
