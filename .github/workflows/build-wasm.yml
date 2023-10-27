@@ -33,7 +33,8 @@ jobs:
       -
         name: Build WASM
         run: |
-          docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest; \
+          cd raylib-game-template; \
+            docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest; \
             zip ./dist/release.zip ./dist/*
       - 
         name: Deploy Static Site
