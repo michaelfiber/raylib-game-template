@@ -22,7 +22,7 @@ Very quick and dirty integration of some web browser features available in WASM 
 
 ## Github workflows
 
-**Github Workflows** - The `./github/workflows/build-wasm.yml` file tells Github to automatically build a WASM version using the docker-build and docker-run commands in the docker-script directory. That WASM version is pushed to a branch called gh-pages. The branch is created if necessary. You can then publish that branch as Github Pages and have static hosting for your WASM project.
+**Github Workflows** - **NOTE: After you click to use this template, in the newly created repo, you must go to Settings -> Actions -> General and check the box next to 'Allow GitHub Actions to create and approve pull requests.'** The `./github/workflows/build-wasm.yml` file tells Github to automatically build a WASM version using the docker-build and docker-run commands in the docker-script directory. That WASM version is pushed to a branch called gh-pages. The branch is created if necessary. You can then publish that branch as Github Pages and have static hosting for your WASM project.
 
 **Tiny bit of build config** - There's a little config in github-scripts/config - this config file lets you set some options related to the Github Actions workflow as well as the docker build container.
 
