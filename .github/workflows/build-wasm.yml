@@ -31,14 +31,10 @@ jobs:
         with:
           path: raylib-game-template
       -
-        name: Docker Build
-        run: ./raylib-game-template/docker-scripts/docker-build.sh
-      -
-        name: Docker Run
-        run: ./raylib-game-template/docker-scripts/docker-run.sh
-      - 
-        name: Zip release artifacts
-        run: ./raylib-game-template/docker-scripts/zip-files.sh
+        name: Build WASM
+        run: |
+          docker run --rm -v $(pwd):/app/project -u $(id -u):$(id -g) michaelfiber/mikes-raylib-wasm-builder:latest; \
+            zip ./dist/release.zip ./dist/*
       - 
         name: Deploy Static Site
         uses: moodiest/push-to-branch-action@develop
